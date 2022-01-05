@@ -67,14 +67,17 @@ const channel = new SSEChannel();
 app.get('/stream', (req, res) => channel.subscribe(req, res));
 ```
 
-### `publish(data, [eventName])`
+### `publish(data, [eventName], [overwriteEventName])`
 
 Publishes a new event to all subscribers to the channel.
 
 * `data` (any): Message to send.  If a primitive value, will be sent as-is, otherwise will be passed through `JSON.stringify`.
 * `eventName` (string): Event name to assign to the event.
+* `overwriteEventName` (string): Event name to assign to the event, overwriting *eventName*.
 
 Since all events published to a channel will be sent to all subscribers to that channel, if you want to filter events that are of interest to only a subset of users, it makes sense to use multiple separate channel instances.  However, `eventName` is useful if you are sending events that are all relevant to all subscribers, but might need to be processed by different client-side handlers.  Event names can therefore be considered to be like method names of a method that you are invoking in the client-side code.
+
+`eventName` is also useful if you don't want to create multiple separate channel. In this case use eventName to filter and an optional `overwriteEventName` to set the same eventName for every subscription.
 
 Returns the ID of the new message.
 

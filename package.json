@@ -1,11 +1,12 @@
 {
-  "name": "sse-pubsub",
-  "version": "1.4.1",
+  "name": "@dataxquare/sse-pubsub",
+  "version": "1.5.1",
   "description": "Server-sent events with pub/sub interface",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/tests.mjs --exit",
-    "start": "node demo/server.js"
+    "start": "node demo/server.js",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",

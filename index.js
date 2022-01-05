@@ -25,7 +25,7 @@ module.exports = class SSEChannel {
 		}
 	}
 
-	publish(data, eventName) {
+	publish(data, eventName, overwriteEventName) {
 		if (!this.active) throw new Error('Channel closed');
 		let output;
 		let id;
@@ -38,7 +38,7 @@ module.exports = class SSEChannel {
 			data = data ? data.split(/[\r\n]+/).map(str => 'data: '+str).join('\n') : '';
 			output = (
 				"id: " + id + "\n" +
-				(eventName ? "event: " + eventName + "\n" : "") +
+				(eventName ? "event: " + (overwriteEventName || eventName) + "\n" : "") +
 				(data || "data: ") + '\n\n'
 			);
 			this.messages.push({ id, eventName, output });
